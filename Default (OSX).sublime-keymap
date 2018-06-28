@@ -1,0 +1,4 @@
+[
+  { "keys": ["super+\\"], "command": "cursor_vertical_align" },
+	{ "keys": ["super+alt+\\"], "command": "text_vertical_align" }
+]

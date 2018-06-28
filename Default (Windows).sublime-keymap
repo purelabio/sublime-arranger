@@ -1,0 +1,4 @@
+[
+  { "keys": ["ctrl+\\"], "command": "cursor_vertical_align" },
+  { "keys": ["ctrl+alt+\\"], "command": "text_vertical_align" }
+]
