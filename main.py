@@ -7,15 +7,16 @@ class CursorVerticalAlignCommand(sublime_plugin.TextCommand):
     view = self.view
     sel  = self.view.sel()
 
-    first_sel = sel[0]
-    first_point = view.rowcol(first_sel.a)
-    col_to_align = first_point[1]
+    row_first, col_first = view.rowcol(sel[0].a)
 
     regions = []
     for cursor in sel:
-      row = view.rowcol(cursor.a)[0]
-      point = view.text_point(row, col_to_align)
+      row, col = view.rowcol(cursor.a)
+      point = view.text_point(row, col_first)
       regions.append(point)
+      text = view.substr(view.line(cursor.a))
+      if col < col_first and len(text) < col_first:
+        self.view.insert(edit, cursor.a, " " * (col_first - col))
 
     sel.clear()
     sel.add_all(regions)
