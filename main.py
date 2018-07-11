@@ -22,8 +22,9 @@ class CursorVerticalAlignCommand(sublime_plugin.TextCommand):
       point = view.text_point(row, col_first)
       regions.append(point)
 
-      if col < col_first and len(text) < col_first:
-        self.view.insert(edit, cursor.a, " " * (col_first - col + tabs_diff))
+      text_len = len(text)
+      if col < col_first and text_len < col_first:
+        self.view.insert(edit, view.text_point(row, text_len), " " * (col_first - text_len + tabs_diff))
 
     sel.clear()
     sel.add_all(regions)
