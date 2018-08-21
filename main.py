@@ -36,8 +36,9 @@ class TextVerticalAlignCommand(sublime_plugin.TextCommand):
     view = self.view
     sel  = self.view.sel()
 
-    max_col = max([view.rowcol(x.a)[1] for x in sel])
+    max_col = max([view.rowcol(min(x.a, x.b))[1] for x in sel])
 
     for point in sel:
-      rowcol = self.view.rowcol(point.a)
-      self.view.insert(edit, point.a, " " * (max_col - rowcol[1]))
+      selection_start = min(point.a, point.b)
+      rowcol = self.view.rowcol(selection_start)
+      self.view.insert(edit, selection_start, " " * (max_col - rowcol[1]))
