@@ -1,4 +1,5 @@
 [
   { "keys": ["super+\\"], "command": "cursor_vertical_align" },
-	{ "keys": ["super+alt+\\"], "command": "text_vertical_align" }
+  { "keys": ["super+alt+\\"], "command": "text_vertical_align" },
+	{ "keys": ["super+shift+\\"], "command": "use_selection_to_align" }
 ]
