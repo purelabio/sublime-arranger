@@ -50,11 +50,12 @@ class TextVerticalAlignCommand(sublime_plugin.TextCommand):
 class UseSelectionToAlignCommand(sublime_plugin.TextCommand):
 
   def run(self, edit):
-    view         = self.view
-    block_to_arrange   = self.view.sel()
-    text_to_arrange = self.get_slurp_find_text()
+    view             = self.view
 
+    block_to_arrange = self.view.sel()
     if block_to_arrange is None: return
+
+    text_to_arrange  = self.get_slurp_find_text()
     if text_to_arrange  is None: return
 
     line_regions = view.lines(block_to_arrange[0])
@@ -73,6 +74,8 @@ class UseSelectionToAlignCommand(sublime_plugin.TextCommand):
       start  = min(line.a, line.b) + index
       rowcol = self.view.rowcol(start)
       spaces = " " * (max_index - index)
+
+      if index == -1: continue
 
       self.view.insert(edit, start, spaces)
 
