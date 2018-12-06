@@ -1,7 +1,7 @@
 import sublime
 import sublime_plugin
 
-class CursorVerticalAlignCommand(sublime_plugin.TextCommand):
+class ArrangeCursorVerticalCommand(sublime_plugin.TextCommand):
 
   def run(self, edit):
     view                = self.view
@@ -31,7 +31,7 @@ class CursorVerticalAlignCommand(sublime_plugin.TextCommand):
     sel.add_all(regions)
 
 
-class TextVerticalAlignCommand(sublime_plugin.TextCommand):
+class ArrangeTextVerticalCommand(sublime_plugin.TextCommand):
 
   def run(self, edit):
     view    = self.view
@@ -47,10 +47,10 @@ class TextVerticalAlignCommand(sublime_plugin.TextCommand):
 
 
 # TODO Reduce the number of spaces to the index
-class UseSelectionToAlignCommand(sublime_plugin.TextCommand):
+class ArrangeUseSelectionCommand(sublime_plugin.TextCommand):
 
   def run(self, edit):
-    view             = self.view
+    view = self.view
 
     block_to_arrange = self.view.sel()
     if block_to_arrange is None: return

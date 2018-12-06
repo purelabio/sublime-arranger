@@ -1,0 +1,14 @@
+[
+  {
+    "caption": "Arrange: cursor vertical",
+    "command": "arrange_cursor_vertical",
+  },
+  {
+    "caption": "Arrange: text vertical",
+    "command": "arrange_text_vertical",
+  },
+  {
+    "caption": "Arrange: on slurp find selection",
+    "command": "arrange_use_selection",
+  },
+]
