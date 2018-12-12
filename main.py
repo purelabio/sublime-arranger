@@ -50,7 +50,8 @@ class ArrangeTextVerticalCommand(sublime_plugin.TextCommand):
 class ArrangeUseSelectionCommand(sublime_plugin.TextCommand):
 
   def run(self, edit):
-    view = self.view
+    view     = self.view
+    position = view.viewport_position()
 
     block_to_arrange = self.view.sel()
     if block_to_arrange is None: return
@@ -78,6 +79,9 @@ class ArrangeUseSelectionCommand(sublime_plugin.TextCommand):
       if index == -1: continue
 
       self.view.insert(edit, start, spaces)
+
+    restore = lambda: view.set_viewport_position(position, animate=False)
+    sublime.set_timeout(restore, 0)
 
 
   def get_slurp_find_text(self):
