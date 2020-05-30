@@ -85,7 +85,7 @@ class ArrangeUseSelectionCommand(sublime_plugin.TextCommand):
 
 
   def get_slurp_find_text(self):
-    view = self.view
+    view            = self.view
     selected_region = self.view.sel()[0]
 
     view.window().run_command("find_next")
@@ -101,3 +101,25 @@ class ArrangeUseSelectionCommand(sublime_plugin.TextCommand):
     return text
 
 
+class ArrangeReduceSelection(sublime_plugin.TextCommand):
+
+  def run(self, edit):
+    view = self.view
+    sel  = self.view.sel()
+    regions = view.lines(sel[0])
+
+    if (len(regions) < 3):
+      return
+
+    view.window().run_command("expand_selection", {
+      "to": "line",
+    })
+
+    regions = view.lines(sel[0])
+    new_regions = regions[1:len(regions)-1]
+    new_regions = [(x.a, x.b) for x in new_regions]
+    positions = [x for xs in new_regions for x in xs]
+    new_region = sublime.Region(min(positions), max(positions))
+
+    sel.clear()
+    sel.add_all([new_region])

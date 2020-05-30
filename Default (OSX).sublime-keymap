@@ -1,5 +1,6 @@
 [
   { "keys": ["super+\\"], "command": "arrange_cursor_vertical"      },
   { "keys": ["super+alt+\\"], "command": "arrange_text_vertical"    },
-	{ "keys": ["super+shift+\\"], "command": "arrange_use_selection"  }
+  { "keys": ["super+shift+\\"], "command": "arrange_use_selection"  },
+	{ "keys": ["super+shift+e"], "command": "arrange_reduce_selection"  }
 ]
