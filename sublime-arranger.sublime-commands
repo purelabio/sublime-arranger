@@ -11,4 +11,8 @@
     "caption": "Arrange: on slurp find selection",
     "command": "arrange_use_selection",
   },
+  {
+    "caption": "Reduce selection from top and bottom",
+    "command": "arrange_reduce_selection",
+  },
 ]

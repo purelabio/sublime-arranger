@@ -1,8 +1,8 @@
 
 
-# Sublime Vertical Align
+# Sublime Arrange Text
 
-Tiny Plugin for Sublime Text 2 and 3 for alignment in the column of cursors and text.
+Tiny Plugin for Sublime Text for alignment in the column of cursors and text.
 
 ## Keybaord shortcuts for  Apple Macintosh
 
@@ -12,12 +12,12 @@ Vertical align cursors
 
 Vertical align text
 - use <kbd>⌘ cmd</kbd> + <kbd>d</kbd> to [Quick Add Next](https://www.sublimetext.com/docs/2/multiple_selection_with_the_keyboard.html)
-- press ⌘ <kbd>⌘ cmd</kbd> + <kbd>⌥ alt</kbd> + <kbd>\\</kbd>
+- press <kbd>⌘ cmd</kbd> + <kbd>⌥ alt</kbd> + <kbd>\\</kbd>
 
 Vertical align find string in selection
 - use <kbd>⌘ cmd</kbd> + <kbd>E</kbd> to slurp find string
 - select region to align and press
-- ⌘ <kbd>⌘ cmd</kbd> + <kbd>⌂ shift</kbd> + <kbd>\\</kbd> to align;
+- <kbd>⌘ cmd</kbd> + <kbd>⌂ shift</kbd> + <kbd>\\</kbd> to align;
 
 ## Keybaord shortcuts for Linux and Windows
 

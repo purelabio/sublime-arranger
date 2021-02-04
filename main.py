@@ -88,8 +88,8 @@ class ArrangeUseSelectionCommand(sublime_plugin.TextCommand):
     view            = self.view
     selected_region = self.view.sel()[0]
 
-    view.window().run_command("find_next")
-    view.window().run_command("find_prev")
+    view.run_command("find_next")
+    view.run_command("find_prev")
     sel = self.view.sel()
 
     if len(sel) == 0: return None
@@ -111,7 +111,7 @@ class ArrangeReduceSelection(sublime_plugin.TextCommand):
     if (len(regions) < 3):
       return
 
-    view.window().run_command("expand_selection", {
+    view.run_command("expand_selection", {
       "to": "line",
     })
 
