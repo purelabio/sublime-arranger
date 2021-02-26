@@ -4,7 +4,7 @@
 
 Tiny Plugin for Sublime Text for alignment in the column of cursors and text.
 
-## Keybaord shortcuts for  Apple Macintosh
+## Keyboard shortcuts for  Apple Macintosh
 
 Vertical align cursors
 - use <kbd>⌘ cmd</kbd> + <kbd>⌂ shift</kbd> + <kbd>↑</kbd> or <kbd>⌘ cmd</kbd> + <kbd>⌂ shift</kbd> + <kbd>↓</kbd>
@@ -19,7 +19,7 @@ Vertical align find string in selection
 - select region to align and press
 - <kbd>⌘ cmd</kbd> + <kbd>⌂ shift</kbd> + <kbd>\\</kbd> to align;
 
-## Keybaord shortcuts for Linux and Windows
+## Keyboard shortcuts for Linux and Windows
 
 Vertical align cursors
 - use <kbd>^ ctrl</kbd> + <kbd>⌂ shift</kbd> + ↑ or <kbd>^ ctrl</kbd> + <kbd>⌂ shift</kbd> + ↓
