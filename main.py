@@ -131,7 +131,7 @@ class arrange_easel(sublime_plugin.TextCommand):
 
     blank = (term + "\n").rjust(spaces)
     text = blank
-    for i in range(10):
+    for i in range(repeat):
       text += blank
 
     for region in view.sel():
