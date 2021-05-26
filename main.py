@@ -119,3 +119,20 @@ class ArrangeReduceSelection(sublime_plugin.TextCommand):
 
     sel.clear()
     sel.add_all([new_region])
+
+class ArrangePano(sublime_plugin.TextCommand):
+
+  def run(self, edit, term, spaces, repeat):
+    view = self.view
+
+    term   = term   or "|"
+    spaces = spaces or 128
+    repeat = repeat or 10
+
+    blank = (term + "\n").rjust(spaces)
+    text = blank
+    for i in range(10):
+      text += blank
+
+    for region in view.sel():
+        view.insert(edit, region.begin(), text)

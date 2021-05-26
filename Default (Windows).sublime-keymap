@@ -1,6 +1,7 @@
 [
-  { "keys": ["ctrl+\\"], "command": "cursor_vertical_align" },
-  { "keys": ["ctrl+alt+\\"], "command": "text_vertical_align" },
-  { "keys": ["ctrl+shift+\\"], "command": "use_selection_to_align" }
-
+  { "keys": ["ctrl+\\"],       "command": "cursor_vertical_align"    },
+  { "keys": ["ctrl+alt+\\"],   "command": "text_vertical_align"      },
+  { "keys": ["ctrl+shift+\\"], "command": "use_selection_to_align"   },
+  { "keys": ["super+shift+e"], "command": "arrange_reduce_selection" },
+  { "keys": ["super+alt+x"],   "command": "arrange_easel", "args": {"term": "|", "spaces": 128, "repeat": 10}}
 ]
