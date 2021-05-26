@@ -1,7 +1,7 @@
 import sublime
 import sublime_plugin
 
-class ArrangeCursorVerticalCommand(sublime_plugin.TextCommand):
+class arrange_cursor_vertical(sublime_plugin.TextCommand):
 
   def run(self, edit):
     view                = self.view
@@ -30,7 +30,7 @@ class ArrangeCursorVerticalCommand(sublime_plugin.TextCommand):
     sel.add_all(regions)
 
 
-class ArrangeTextVerticalCommand(sublime_plugin.TextCommand):
+class arrange_text_vertical(sublime_plugin.TextCommand):
 
   def run(self, edit):
     view    = self.view
@@ -45,7 +45,7 @@ class ArrangeTextVerticalCommand(sublime_plugin.TextCommand):
 
 
 # TODO Reduce the number of spaces to the index
-class ArrangeUseSelectionCommand(sublime_plugin.TextCommand):
+class arrange_use_selection(sublime_plugin.TextCommand):
 
   def run(self, edit):
     view     = self.view
@@ -99,7 +99,7 @@ class ArrangeUseSelectionCommand(sublime_plugin.TextCommand):
     return text
 
 
-class ArrangeReduceSelection(sublime_plugin.TextCommand):
+class arrange_reduce_selection(sublime_plugin.TextCommand):
 
   def run(self, edit):
     view = self.view
@@ -120,7 +120,7 @@ class ArrangeReduceSelection(sublime_plugin.TextCommand):
     sel.clear()
     sel.add_all([new_region])
 
-class ArrangePano(sublime_plugin.TextCommand):
+class arrange_easel(sublime_plugin.TextCommand):
 
   def run(self, edit, term, spaces, repeat):
     view = self.view
