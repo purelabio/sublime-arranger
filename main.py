@@ -123,6 +123,27 @@ class arrange_reduce_selection(sublime_plugin.TextCommand):
 class arrange_easel(sublime_plugin.TextCommand):
 
   def run(self, edit, term, spaces, repeat):
+    view    = self.view
+    regions = view.sel()
+
+    term   = term   or ""
+    spaces = spaces or 128
+    repeat = repeat or 10
+
+    doc = sublime.Region(0, view.size())
+
+    for region in reversed(view.lines(doc)):
+      content = view.substr(region)
+      content = (content.ljust(spaces) + term)
+      view.replace(edit, region, content)
+
+    view.sel().clear()
+    view.sel().add_all(regions)
+
+
+class arrange_easel_paste(sublime_plugin.TextCommand):
+
+  def run(self, edit, term, spaces, repeat):
     view = self.view
 
     term   = term   or "|"
