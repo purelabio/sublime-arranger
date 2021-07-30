@@ -100,25 +100,26 @@ class arrange_use_selection(sublime_plugin.TextCommand):
 
 
 class arrange_reduce_selection(sublime_plugin.TextCommand):
-
   def run(self, edit):
     view = self.view
-    sel  = view.sel()
-    regions = view.lines(sel[0])
-
-    if (len(regions) < 3):
-      return
-
     view.run_command("expand_selection", {"to": "line"})
+    sel = view.sel()
 
-    regions = view.lines(sel[0])
-    new_regions = regions[1:len(regions)-1]
-    new_regions = [(x.a, x.b) for x in new_regions]
-    positions = [x for xs in new_regions for x in xs]
-    new_region = sublime.Region(min(positions), max(positions))
+    regions = []
+    for region in sel:
+        line_regions = view.lines(region)
+
+        if (len(line_regions) < 3):
+          continue
+
+        line_regions = line_regions[1:len(line_regions)-1]
+        begin        = min(reg.begin() for reg in line_regions)
+        end          = max(reg.end()   for reg in line_regions)
+        regions.append(sublime.Region(begin, end))
 
     sel.clear()
-    sel.add_all([new_region])
+    sel.add_all(regions)
+
 
 class arrange_easel(sublime_plugin.TextCommand):
 
