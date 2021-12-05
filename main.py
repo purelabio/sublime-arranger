@@ -102,23 +102,20 @@ class arrange_use_selection(sublime_plugin.TextCommand):
 class arrange_reduce_selection(sublime_plugin.TextCommand):
   def run(self, edit):
     view = self.view
-    view.run_command("expand_selection", {"to": "line"})
     sel = view.sel()
 
-    regions = []
-    for region in sel:
-        line_regions = view.lines(region)
+    if (len(sel) < 1): return
+    sel = sel[0]
 
-        if (len(line_regions) < 3):
-          continue
+    reg = []
+    lines = view.lines(sel)
+    if (len(lines) > 2):
+      reg = reduce_regions(lines)
+    else:
+      reg = reduce_regions([sel])
 
-        line_regions = line_regions[1:len(line_regions)-1]
-        begin        = min(reg.begin() for reg in line_regions)
-        end          = max(reg.end()   for reg in line_regions)
-        regions.append(sublime.Region(begin, end))
-
-    sel.clear()
-    sel.add_all(regions)
+    view.sel().clear()
+    view.sel().add_all([reg])
 
 
 class arrange_easel(sublime_plugin.TextCommand):
@@ -158,3 +155,71 @@ class arrange_easel_paste(sublime_plugin.TextCommand):
 
     for region in view.sel():
         view.insert(edit, region.begin(), text)
+
+
+def reduce_regions(regs):
+  shift = 0
+  size = len(regs)
+
+  if (size < 1):
+    return []
+
+  if (size <= 2):
+    shift = 1
+  else:
+    regs = regs[1:size-1]
+
+  beg = min(reg.begin() for reg in regs)
+  end = max(reg.end()   for reg in regs)
+  return sublime.Region(beg + shift, end - shift)
+
+def test(expected, actual, msg):
+  if expected != actual:
+    raise Exception(msg + " expected: " + str(expected) + " actual: " + str(actual))
+
+def test_reduce_selection():
+  msg = "test_reduce_selection"
+
+  test([], reduce_regions([]), msg)
+
+  test(sublime.Region(3090+1, 3148-1),
+    reduce_regions([
+      sublime.Region(3090, 3148)
+    ]),
+    msg
+  )
+
+  test(sublime.Region(3090+1, 3212-1),
+    reduce_regions([
+      sublime.Region(3090, 3148),
+      sublime.Region(3149, 3212),
+    ]),
+    msg
+  )
+
+  test(sublime.Region(3149, 3212),
+    reduce_regions([
+      sublime.Region(3090, 3148),
+      sublime.Region(3149, 3212),
+      sublime.Region(3213, 3276),
+    ]),
+    msg
+  )
+
+  test(sublime.Region(3149, 3327),
+    reduce_regions([
+      sublime.Region(3090, 3148),
+      sublime.Region(3149, 3212),
+      sublime.Region(3213, 3276),
+      sublime.Region(3277, 3327),
+      sublime.Region(3328, 3328),
+    ]),
+    msg
+  )
+
+  print("pass")
+
+# Uncomment to run reduce selection tests.
+# test_reduce_selection()
+
+
