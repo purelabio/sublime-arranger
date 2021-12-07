@@ -99,27 +99,7 @@ class arrange_use_selection(sublime_plugin.TextCommand):
     return text
 
 
-class arrange_reduce_selection(sublime_plugin.TextCommand):
-  def run(self, edit):
-    view = self.view
-    sel = view.sel()
-
-    if (len(sel) < 1): return
-    sel = sel[0]
-
-    reg = []
-    lines = view.lines(sel)
-    if (len(lines) > 2):
-      reg = reduce_regions(lines)
-    else:
-      reg = reduce_regions([sel])
-
-    view.sel().clear()
-    view.sel().add_all([reg])
-
-
 class arrange_easel(sublime_plugin.TextCommand):
-
   def run(self, edit, term, spaces, repeat):
     view    = self.view
     regions = view.sel()
@@ -140,7 +120,6 @@ class arrange_easel(sublime_plugin.TextCommand):
 
 
 class arrange_easel_paste(sublime_plugin.TextCommand):
-
   def run(self, edit, term, spaces, repeat):
     view = self.view
 
@@ -157,69 +136,145 @@ class arrange_easel_paste(sublime_plugin.TextCommand):
         view.insert(edit, region.begin(), text)
 
 
-def reduce_regions(regs):
-  shift = 0
+class arrange_reduce_selection(sublime_plugin.TextCommand):
+  def run(self, edit):
+    new_regs = self.reduce_regs()
+    self.view.sel().clear()
+    self.view.sel().add_all(new_regs)
+
+  def reduce_regs(self):
+    view = self.view
+    sel  = view.sel()
+    lines = self.lines()
+
+    if len(lines) > 1:
+      return reduce_regions_vsel(lines)
+
+    return reduce_regions_hsel(sel)
+
+  def lines(self):
+    view = self.view
+    sel  = view.sel()
+
+    if len(sel) == 1:
+      return view.lines(sel[0])
+
+    return []
+
+
+def reduce_regions_hsel(regs):
+  res = []
+
+  for reg in regs:
+
+    if reg.begin() == reg.end():
+      res.append(reg)
+      continue
+
+    beg = min(reg.begin(), reg.end()) + 1
+    end = max(reg.begin(), reg.end()) - 1
+    res.append(sublime.Region(beg, end))
+
+  return res
+
+def reduce_regions_vsel(regs):
   size = len(regs)
 
   if (size < 1):
     return []
 
   if (size <= 2):
-    shift = 1
+    return [regs[0]]
   else:
     regs = regs[1:size-1]
 
   beg = min(reg.begin() for reg in regs)
   end = max(reg.end()   for reg in regs)
-  return sublime.Region(beg + shift, end - shift)
+  return [sublime.Region(beg, end)]
+
 
 def test(expected, actual, msg):
-  if expected != actual:
-    raise Exception(msg + " expected: " + str(expected) + " actual: " + str(actual))
+  if type(expected) != list:
+    expected = [expected]
 
-def test_reduce_selection():
-  msg = "test_reduce_selection"
+  for i in range(len(expected)):
+    exp = expected[i]
+    act = actual[i]
+    if exp != act:
+      raise Exception(msg + " expected: " + str(exp) + " actual: " + str(act))
 
-  test([], reduce_regions([]), msg)
 
-  test(sublime.Region(3090+1, 3148-1),
-    reduce_regions([
+def test_reduce_vsel():
+  test([], reduce_regions_vsel([]), 'test_reduce_vsel')
+
+  test(sublime.Region(3090, 3148),
+    reduce_regions_vsel([
       sublime.Region(3090, 3148)
     ]),
-    msg
+    'test_reduce_vsel'
   )
 
-  test(sublime.Region(3090+1, 3212-1),
-    reduce_regions([
+  test(sublime.Region(3090, 3148),
+    reduce_regions_vsel([
       sublime.Region(3090, 3148),
       sublime.Region(3149, 3212),
     ]),
-    msg
+    'test_reduce_vsel'
   )
 
   test(sublime.Region(3149, 3212),
-    reduce_regions([
+    reduce_regions_vsel([
       sublime.Region(3090, 3148),
       sublime.Region(3149, 3212),
       sublime.Region(3213, 3276),
     ]),
-    msg
+    'test_reduce_vsel'
   )
 
   test(sublime.Region(3149, 3327),
-    reduce_regions([
+    reduce_regions_vsel([
       sublime.Region(3090, 3148),
       sublime.Region(3149, 3212),
       sublime.Region(3213, 3276),
       sublime.Region(3277, 3327),
       sublime.Region(3328, 3328),
     ]),
-    msg
+    'test_reduce_vsel'
   )
 
-  print("pass")
+  print('test_reduce_vsel — pass')
+
+
+
+
+def test_reduce_hsel():
+  test([
+    sublime.Region(3020, 3020),
+  ],
+  reduce_regions_hsel([
+    sublime.Region(3020, 3020),
+  ]),
+  'test_reduce_hsel')
+
+  test([
+    sublime.Region(3019+1, 3024-1),
+    sublime.Region(3032+1, 3037-1),
+    sublime.Region(3055+1, 3060-1),
+    sublime.Region(3095+1, 3100-1),
+  ],
+  reduce_regions_hsel([
+    sublime.Region(3019, 3024),
+    sublime.Region(3032, 3037),
+    sublime.Region(3055, 3060),
+    sublime.Region(3095, 3100),
+  ]),
+  'test_reduce_hsel')
+
+  print('test_reduce_hsel — pass')
+
 
 # Uncomment to run reduce selection tests.
-# test_reduce_selection()
+# test_reduce_vsel()
+# test_reduce_hsel()
 
 
