@@ -1,18 +1,22 @@
 [
   {
-    "caption": "Arrange: cursor vertical",
+    "caption": "Arrange: Cursor vertical",
     "command": "arrange_cursor_vertical",
   },
   {
-    "caption": "Arrange: text vertical",
+    "caption": "Arrange: Text vertical",
     "command": "arrange_text_vertical",
   },
   {
-    "caption": "Arrange: on slurp find selection",
+    "caption": "Arrange: On slurp find selection",
     "command": "arrange_use_selection",
   },
   {
-    "caption": "Arrange: reduce selection from top and bottom",
+    "caption": "Arrange: Reduce selection from top and bottom",
     "command": "arrange_reduce_selection",
+  },
+  {
+    "caption": "Arrange: Clone file and goto definition",
+    "command": "clone_file_and_goto_definition",
   },
 ]

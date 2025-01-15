@@ -7,7 +7,7 @@ Tiny Plugin for Sublime Text for alignment in the column of cursors and text.
 ## Keyboard shortcuts for  Apple Macintosh
 
 Vertical align cursors
-- use <kbd>⌘ cmd</kbd> + <kbd>⌂ shift</kbd> + <kbd>↑</kbd> or <kbd>⌘ cmd</kbd> + <kbd>⌂ shift</kbd> + <kbd>↓</kbd>
+- use <kbd>⌘ cmd</kbd> + <kbd>^ ctrl</kbd> + <kbd>⇪ shift</kbd> + <kbd>↑</kbd> or <kbd>⌘ cmd</kbd> + <kbd>^ ctrl</kbd> + <kbd>⇪ shift</kbd> + <kbd>↓</kbd>
 - press <kbd>⌘ cmd</kbd> + <kbd>\\</kbd>
 
 Vertical align text
@@ -17,12 +17,12 @@ Vertical align text
 Vertical align find string in selection
 - use <kbd>⌘ cmd</kbd> + <kbd>E</kbd> to slurp find string
 - select region to align and press
-- <kbd>⌘ cmd</kbd> + <kbd>⌂ shift</kbd> + <kbd>\\</kbd> to align;
+- <kbd>⌘ cmd</kbd> + <kbd>⇪ shift</kbd> + <kbd>\\</kbd> to align;
 
 ## Keyboard shortcuts for Linux and Windows
 
 Vertical align cursors
-- use <kbd>^ ctrl</kbd> + <kbd>⌂ shift</kbd> + ↑ or <kbd>^ ctrl</kbd> + <kbd>⌂ shift</kbd> + ↓
+- use <kbd>^ ctrl</kbd> + <kbd>⇪ shift</kbd> + <kbd>↑</kbd> or <kbd>^ ctrl</kbd> + <kbd>⇪ shift</kbd> + <kbd>↓</kbd>
 - press <kbd>^ ctrl</kbd> + <kbd>\\</kbd>
 
 Vertical align text
@@ -32,7 +32,7 @@ Vertical align text
 Vertical align find string in selection
 - use <kbd>^ ctrl</kbd> + <kbd>E</kbd> to slurp find string
 - select region to align and press
-- <kbd>^ ctrl</kbd> + ⌂ <kbd>⌂ shift</kbd> + <kbd>\\</kbd> to align;
+- <kbd>^ ctrl</kbd> + ⇪ <kbd>⇪ shift</kbd> + <kbd>\\</kbd> to align;
 
 ## Demo
 

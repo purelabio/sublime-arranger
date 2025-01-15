@@ -2,7 +2,6 @@ import sublime
 import sublime_plugin
 
 class arrange_cursor_vertical(sublime_plugin.TextCommand):
-
   def run(self, edit):
     view                = self.view
     sel                 = view.sel()
@@ -31,7 +30,6 @@ class arrange_cursor_vertical(sublime_plugin.TextCommand):
 
 
 class arrange_text_vertical(sublime_plugin.TextCommand):
-
   def run(self, edit):
     view    = self.view
     sel     = view.sel()
@@ -46,7 +44,6 @@ class arrange_text_vertical(sublime_plugin.TextCommand):
 
 # TODO Reduce the number of spaces to the index
 class arrange_use_selection(sublime_plugin.TextCommand):
-
   def run(self, edit):
     view     = self.view
     position = view.viewport_position()
@@ -244,9 +241,6 @@ def test_reduce_vsel():
 
   print('test_reduce_vsel — pass')
 
-
-
-
 def test_reduce_hsel():
   test([
     sublime.Region(3020, 3020),
@@ -277,4 +271,41 @@ def test_reduce_hsel():
 # test_reduce_vsel()
 # test_reduce_hsel()
 
+class clone_file_and_goto_definition(sublime_plugin.TextCommand):
+    def run(self, edit):
+        # Get the current view and its contents
+        view = self.view
+
+        # Get current window
+        window = view.window()
+
+        # List views before cloning
+        existing_views = window.views()
+
+        # Get the current cursor position
+        cursor_position = view.sel()[0].begin()
+
+        # Run the 'clone_file' command
+        window.run_command('clone_file')
+
+        # Set delay to allow Sublime to create a new view
+        self.on_new_view(window, existing_views, cursor_position)
+
+    def on_new_view(self, window, existing_views, cursor_position):
+        # Identify new view by comparing with previous views
+        new_view = None
+        for view in window.views():
+            if view not in existing_views:
+                new_view = view
+                break
+
+        if new_view:
+            # Set the cursor position in the new file
+            new_view.sel().clear()
+            new_view.sel().add(sublime.Region(cursor_position, cursor_position))
+
+            # Scroll to the cursor position
+            new_view.show_at_center(cursor_position)
+
+            view.window().run_command('goto_definition')
 
