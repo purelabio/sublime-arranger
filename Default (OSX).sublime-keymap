@@ -9,4 +9,6 @@
     "args": {"term": "", "spaces": 128, "repeat": 10},
   },
   {"keys": ["super+shift+i"], "command": "clone_file_and_goto_definition"},
+  {"keys": ["ctrl+minus"], "command": "modified_jump_back" },
+  {"keys": ["super+ctrl+minus"], "command": "jump_back" },
 ]

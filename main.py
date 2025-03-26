@@ -309,3 +309,41 @@ class clone_file_and_goto_definition(sublime_plugin.TextCommand):
 
             view.window().run_command('goto_definition')
 
+class ModifiedJumpBackCommand(sublime_plugin.TextCommand):
+    def __init__(self, view):
+        super().__init__(view)
+        self.previous_regions = {}
+
+    def run(self, edit):
+        # Get the current view
+        view = self.view
+
+        # Store the initial selection
+        initial_sel = view.sel()[0]
+
+        # Move back in history
+        view.run_command('jump_back')
+
+        # Check if the selection actually changed
+        new_sel = view.sel()[0]
+
+        # Compare the content of lines before and after jump
+        initial_line = view.line(initial_sel)
+        new_line = view.line(new_sel)
+
+        # Get the content of these lines
+        initial_text = view.substr(initial_line)
+        new_text = view.substr(new_line)
+
+        # If the lines are the same, continue jumping back
+        while initial_text == new_text:
+            view.run_command('jump_back')
+
+            # Update selection and lines after each jump
+            new_sel = view.sel()[0]
+            new_line = view.line(new_sel)
+            new_text = view.substr(new_line)
+
+            # Safety check to prevent infinite loop
+            if new_sel == initial_sel:
+                break
